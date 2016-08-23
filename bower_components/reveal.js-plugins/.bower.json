@@ -1,0 +1,33 @@
+{
+  "name": "reveal.js-plugins",
+  "homepage": "https://github.com/rajgoel/reveal.js-plugins",
+  "authors": [
+    "Asvin Goel"
+  ],
+  "description": "A collection of plugins for Reveal.js",
+  "keywords": [
+    "reveal",
+    "plugin",
+    "audio",
+    "chart"
+  ],
+  "license": "MIT, Copyright (C) 2016 Asvin Goel",
+  "ignore": [
+    "**/.*",
+    "menu",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "33d3a3ab32",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "33d3a3ab321357c33e22b06d4f5a0f87bc335c04"
+  },
+  "_source": "https://github.com/rajgoel/reveal.js-plugins.git",
+  "_target": "*",
+  "_originalSource": "reveal.js-plugins",
+  "_direct": true
+}

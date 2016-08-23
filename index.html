@@ -1,50 +1,510 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+	<title>D3.V4 Slides</title>
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/league.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h2>Introduction to D3.js v.4</h2>
+				<p>Slides: <a href="">bitly...</a></p>
+			</section>
+
+			<section >
+				<h2>D3.JS</h2>
+				<div class="earth">
+				</div>
+			</section>
+
+			<section>
+				<h2>What's new</h2>
+				<ul>
+					<li class="fragment">12+ months and ~4,878 commits</li>
+					<li class="fragment">D3 Reorganized into smaller modules</li>
+					<li class="fragment">Namespacing
+						<ul >
+							<li class="fragment">d3.scale.linear is now d3.scaleLinear</li>
+							<li class="fragment">d3.svg.line is now d3.line</li>
+						</ul>
+					</li>
+					<li class="fragment">Cool new functionality</li>
+
+
+				</ul>
+				<aside class="notes">
+d3.min(dataSet, function(d, i, data) {
+  return d.count;
+});
+				</aside>
+				<!-- <div id="force">
+				</div> -->
+			</section>
+
+			<section>
+				<h2><a href="https://d3js.org/">d3js.org</a></h2>
+				<img src="./images/examples.png" alt="examples"/>
+
+			</section>
+
+			<section>
+				<h2>Migration</h2>
+				<ul>
+					<li class="fragment">”d3.min.js”</li>
+					<li class="fragment">”d3.v4.min.js”</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>Selection</h2>
+				<code class="hljs" data-trim contenteditable>
+var p = d3.select("body").append('p');
+p.html('hello');
+				</code>
+				<p>
+					<a href="http://jsfiddle.net/pgrwrvyp/8/" target="_blank">Fiddle</a>
+				</p>
+			</section>
+			<section>
+				<h2>Selection</h2>
+				<code>
+var p = d3.select("body").append('p').data([42, 34, 54, 65, 75]);
+p.text(function(d){ return 'hello ' + d;})
+				</code>
+				<a href="http://jsfiddle.net/pgrwrvyp/9/" target="_blank">Fiddle</a>
+			</section>
+
+			<section>
+				<h2>Selection</h2>
+				<code>
+var p = d3.select("body").append('p').data([42, 34, 54, 65, 75]);
+p.enter().append()
+	.text(function(d){ return 'hello ' + d;})
+				</code>
+				<a href="http://jsfiddle.net/pgrwrvyp/10/" target="_blank">Fiddle</a>
+
+			</section>
+
+			<section>
+				<h2>Selection</h2>
+
+				<code class="hljs" data-trim contenteditable>
+<p>hello 34</p>;
+var p = d3.select("body").selectAll('p').append('p').data([42, 34, 54, 65, 75]);
+p.enter().append('p')
+.text(function(d){ return 'hello ' + d;})
+.style('color', 'red')
+				</code>
+				<a href="http://jsfiddle.net/pgrwrvyp/11/" target="_blank">Fiddle</a>
+				<aside class="notes">
+					 The selection.sort and selection.data methods now return new selections rather than modifying the selection in-place. In addition, selection.append no longer merges entering nodes into the update selection; use selection.merge to combine enter and update after a data join
+				</aside>
+			</section>
+
+			<section>
+				<h2>Selection</h2>
+
+				<code class="hljs" data-trim contenteditable>
+
+	var els = d3.select("body")
+    .selectAll("p")
+    .data(data, function(d) { return d; });// UPDATE
+
+  var updating = els.style("color", "red");
+
+  var entering = els.enter().append("p")// ENTER
+    .text(String)
+    .style("color", "blue")
+
+  var exiting = els.exit().style("color", "lightgrey");//EXIT
+
+  var merged = els.merge(entering)// ENTER + UPDATE
+    .style("color", "green");
+
+				</code>
+				<a href="https://jsfiddle.net/yonet3d/6y0wwdmr/1/" target="_blank">Fiddle</a>
+				<aside class="notes">
+					 The selection.sort and selection.data methods now return new selections rather than modifying the selection in-place. In addition, selection.append no longer merges entering nodes into the update selection; use selection.merge to combine enter and update after a data join
+				</aside>
+			</section>
+			<section>
+				<h2>Transition</h2>
+				<code class="hljs" data-trim contenteditable>
+var exiting = els.exit()
+  	.transition()
+    .duration(750)
+    .ease(d3.easeLinear)
+  	.style("color", "lightgrey");//EXIT
+	</code>
+	<a href="https://jsfiddle.net/yonet3d/6y0wwdmr/1/" target="_blank">Fiddle</a>
+			</section>
+			<section>
+				<h2>Scales</h2>
+				<code class="hljs" data-trim contenteditable>
+x = d3.scaleLinear()
+    .range([0, width])
+				</code>
+			</section>
+			<section>
+				<h2>Scales</h2>
+				<code class="hljs" data-trim contenteditable>
+x = d3.scaleLinear()
+    .range([0, width])
+		.domain([0, 100]);
+				</code>
+			</section>
+
+			<section>
+				<h2>Steps</h2>
+				<ul>
+					<li>Setup the config for size, scales</li>
+					<li>Build svg with config</li>
+					<li>Populate data</li>
+					<li>Draw axis</li>
+				</ul>
+				<code class="hljs" data-trim contenteditable>
+render() {
+	setup();
+	populate();
+}
+				</code>
+			</section>
+			<section>
+				<h2>Setup</h2>
+
+				<code class="" data-trim contenteditable>
+function setUp() {
+	var margin = {
+		top: 20,
+		right: 20,
+		bottom: 30,
+		left: 50
+	};
+	width = 800 - margin.left - margin.right,
+		height = 400 - margin.top - margin.bottom;
+
+	var x = d3.scaleLinear()
+		.range([0, width]);
+
+	var y = d3.scaleLinear()
+		.range([height, 0]);
+}
+				</code>
+				<a href="https://jsfiddle.net/yonet3d/6y0wwdmr/" target="_blank">Fiddle</a>
+				<aside class="notes">
+					 The selection.sort and selection.data methods now return new selections rather than modifying the selection in-place. In addition, selection.append no longer merges entering nodes into the update selection; use selection.merge to combine enter and update after a data join
+				</aside>
+			</section>
+
+
+
+
+			<!-- <section>
+				<h2>Geo-projection</h2>
+				<a href="https://github.com/d3/d3-geo-projection/blob/master/README.md">Geo-projection</a>
+			</section>
+
+			<section>
+				<h2>D3 Collections</h2>
+				<ul>
+					<li>Objects</li>
+Maps
+Sets
+Nests</li>
+				</ul>
+			</section> -->
+
+
+			<section data-background-iframe='http://bl.ocks.org/monfera/raw/2d2809d8458ffb81cc9acab2e65ed4ef/'>
+				<h2>Fun</h2>
+				<ul>
+					<li><a href="http://bl.ocks.org/monfera/2d2809d8458ffb81cc9acab2e65ed4ef">Mixing drinks on Tralfamadore</a></li>
+					<li><a href="http://bl.ocks.org/mbostock/raw/70d5541b547cc222aa02/">Chain transitions</a></li>
+				</ul>
+
+
+			</section>
+
+			<section style="text-align: left;">
+
+				<h1>THE END</h1>
+				<p>
+					Thank you for you attention!
+				</p>
+
+				<p>
+
+					- <a href="https://twitter.com/AysegulYonet">@AysegulYone</a> <br>
+					- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
+				</p>
+			</section>
+
+
 		</div>
+	</div>
+	<!-- TODO
+	set
+	var items = [
+ {total: 22, month: ‘May’},
+ {total:76, month: ‘June’},
+ {total: 28, month: ‘May’},
+ {total: 38, month: ‘May’}];
+Var months = d3.set(items, function(d) { return d.month; }); // May, June
+data.columns
+d3.csv(‘items.csv”, function(data){
+ console.log(data.columns); // [“total”, “month”]
+});
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+d3.stratify()
 
-		<script>
-			// More info https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				history: true,
+var root = d3.stratify()
+ .id(function(d) { return d.name; })
+ .parentId(function(d) { return d.parent; })
+ (nodes);
+-->
+<!-- Selections no longer subclass Array by extending its prototype. They are now plain objects. -->
 
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+<!-- Selections are immutable (parents and elements never change, though their attributes do.) For example. selection.sort will return a new selection. -->
+
+<!-- drawing to Canvas & SVG
+Easier to draw the same path or shape to both svg and canvas.
+Shapes were limited to SVG, but now shape generators have optional context for canvas -->
+
+
+<!-- var circleBinding = svg.selectAll("circle").data(data);
+circleBinding.style("fill", "blue"); // UPDATE
+circleBinding.exit().remove(); // EXIT
+circleBinding.enter().append("circle") // ENTER; modifies UPDATE!
+    .style("fill", "green");
+circleBinding // ENTER + UPDATE
+    .style("stroke", "black"); -->
+
+		<!-- axis.tickArguments([20, "s"]) - shorthand for calling axis.ticks(20) and axis.tickFormat(d3.format("s")). -->
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+					history: true,
+					width: 960,
+    height: 700,
+		previewLinks: true,
+
+					transition: 'default',
+						// More info https://github.com/hakimel/reveal.js#dependencies
+						dependencies: [{
+							src: 'plugin/markdown/marked.js'
+						}, {
+							src: 'plugin/markdown/markdown.js'
+						}, {
+							src: 'plugin/notes/notes.js',
+							async: true
+						}, {
+							src: 'plugin/highlight/highlight.js',
+							async: true,
+							callback: function() {
+								hljs.initHighlightingOnLoad();
+							}
+						}]
+					});
+	</script>
+	<script src="js/d3.v3.min.js"></script>
+	<script src="js/topojson.v1.min.js"></script>
+	<script type="text/javascript">
+
+	var width = 500,height = 500;
+	var colors = [
+		'#1A253A',
+		'#132034',
+		'#2A2C3F',
+		'#1B3549',
+		'#3C384A',
+		'#21495B',
+		'#8E4649',
+		'#6E3945',
+		'#105D6B',
+		'#496472'
+	]
+
+var radius = height / 2 - 5,
+scale = radius,
+velocity = .02;
+
+var projection = d3.geo.orthographic()
+.translate([width / 2, height / 2])
+.scale(scale)
+.clipAngle(90);
+
+var canvas = d3.select(".earth").append("canvas")
+.attr("width", width)
+.attr("height", height);
+
+var context = canvas.node().getContext("2d");
+
+var path = d3.geo.path()
+.projection(projection)
+.context(context);
+
+d3.json("js/world-110m.json", function(error, world) {
+if (error) throw error;
+
+var land = topojson.feature(world, world.objects.land);
+
+d3.timer(function(elapsed) {
+context.clearRect(0, 0, width, height);
+context.beginPath();
+context.arc(width / 2, height / 2, radius, 0, 2 * Math.PI, true);
+context.lineWidth = 2.5;
+context.fillStyle = '#001233';
+context.fill();
+
+projection.rotate([velocity * elapsed, 0]);
+context.beginPath();
+path(land);
+context.fillStyle = colors[6]//'#00bdff';
+context.fill();
+
+context.beginPath();
+context.arc(width / 2, height / 2, radius, 0, 2 * Math.PI, true);
+context.lineWidth = 2.5;
+context.strokeStyle = colors[0];//'#007a99'
+context.stroke();
+});
+});
+
+d3.select(self.frameElement).style("height", height + "px");
+
+
+
+	</script>
+
+	<!-- ForceLayout -->
+<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+<script>
+
+var canvas = document.getElementById("force"),
+    context = canvas.getContext("2d"),
+    width = canvas.width,
+    height = canvas.height,
+    searchRadius = 40;
+
+var color = d3.scaleOrdinal()
+    .range(d3.schemeCategory20);
+
+var simulation = d3.forceSimulation()
+    .force("charge", d3.forceManyBody().strength(-18))
+    .force("link", d3.forceLink().iterations(4).id(function(d) { return d.id; }))
+    .force("x", d3.forceX())
+    .force("y", d3.forceY());
+
+d3.json("graph.json", function(error, graph) {
+  if (error) throw error;
+
+  var users = d3.nest()
+      .key(function(d) { return d.user; })
+      .entries(graph.nodes)
+      .sort(function(a, b) { return b.values.length - a.values.length; });
+
+  color.domain(users.map(function(d) { return d.key; }));
+
+  simulation
+      .nodes(graph.nodes)
+      .on("tick", ticked);
+
+  simulation.force("link")
+      .links(graph.links);
+
+  d3.select(canvas)
+      .on("mousemove", mousemoved)
+      .call(d3.drag()
+          .container(canvas)
+          .subject(dragsubject)
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended));
+
+  function ticked() {
+    context.clearRect(0, 0, width, height);
+    context.save();
+    context.translate(width / 2, height / 2);
+
+    context.beginPath();
+    graph.links.forEach(drawLink);
+    context.strokeStyle = "#aaa";
+    context.stroke();
+
+    users.forEach(function(user) {
+      context.beginPath();
+      user.values.forEach(drawNode);
+      context.fillStyle = color(user.key);
+      context.fill();
+    });
+
+    context.restore();
+  }
+
+  function dragsubject() {
+    return simulation.find(d3.event.x - width / 2, d3.event.y - height / 2, searchRadius);
+  }
+
+  function mousemoved() {
+    var a = this.parentNode, m = d3.mouse(this), d = simulation.find(m[0] - width / 2, m[1] - height / 2, searchRadius);
+    if (!d) return a.removeAttribute("href"), a.removeAttribute("title");
+    a.setAttribute("href", "http://bl.ocks.org/" + (d.user ? d.user + "/" : "") + d.id);
+    a.setAttribute("title", d.id + (d.user ? " by " + d.user : "") + (d.description ? "\n" + d.description : ""));
+  }
+});
+
+function dragstarted() {
+  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+  d3.event.subject.fx = d3.event.subject.x;
+  d3.event.subject.fy = d3.event.subject.y;
+}
+
+function dragged() {
+  d3.event.subject.fx = d3.event.x;
+  d3.event.subject.fy = d3.event.y;
+}
+
+function dragended() {
+  if (!d3.event.active) simulation.alphaTarget(0);
+  d3.event.subject.fx = null;
+  d3.event.subject.fy = null;
+}
+
+function drawLink(d) {
+  context.moveTo(d.source.x, d.source.y);
+  context.lineTo(d.target.x, d.target.y);
+}
+
+function drawNode(d) {
+  context.moveTo(d.x + 3, d.y);
+  context.arc(d.x, d.y, 3, 0, 2 * Math.PI);
+}
+
+</script>
+</body>
+
 </html>
