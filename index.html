@@ -28,7 +28,10 @@
 		<div class="slides">
 			<section>
 				<h2>Introduction to D3.js v.4</h2>
-				<p>Slides: <a href="">bitly...</a></p>
+				<p>Slides: <a href="http://bit.ly/d3-v4" target="_blank">bit.ly/d3-v4</a></p>
+				<p>
+					<a href="https://twitter.com/AysegulYonet">@AysegulYonet</a>
+				</p>
 			</section>
 
 			<section >
@@ -173,6 +176,21 @@ x = d3.scaleLinear()
 		.domain([0, 100]);
 				</code>
 			</section>
+			<section>
+				<h2>Axis</h2>
+				<code  data-trim contenteditable>
+var xAxis = d3.axisBottom(x).ticks(12);
+			</code>
+			</section>
+			<section>
+				<h2>Axis</h2>
+				<code  data-trim contenteditable>
+var xAxis = d3.axisBottom(x).ticks(12);
+svg.append("g")
+	.attr("transform", "translate(0," + height + ")")
+	.call(xAxis);
+			</code>
+			</section>
 
 			<section>
 				<h2>Steps</h2>
@@ -255,7 +273,7 @@ Nests</li>
 				<p>
 
 					- <a href="https://twitter.com/AysegulYonet">@AysegulYone</a> <br>
-					- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
+					- <a href="https://github.com/hakimel/reveal.js">Slides and code</a>
 				</p>
 			</section>
 
