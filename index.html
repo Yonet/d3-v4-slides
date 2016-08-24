@@ -80,17 +80,17 @@ d3.min(dataSet, function(d, i, data) {
 
 			<section>
 				<h2>Selection</h2>
-				<code class="hljs" data-trim contenteditable>
+				<pre><code>
 var p = d3.select("body").append('p');
 p.html('hello');
-				</code>
+				</code></pre>
 				<p>
 					<a href="http://jsfiddle.net/pgrwrvyp/8/" target="_blank">Fiddle</a>
 				</p>
 			</section>
 			<section>
 				<h2>Selection</h2>
-				<code>
+				</code></pre>
 var p = d3.select("body").append('p').data([42, 34, 54, 65, 75]);
 p.text(function(d){ return 'hello ' + d;})
 				</code>
@@ -99,11 +99,11 @@ p.text(function(d){ return 'hello ' + d;})
 
 			<section>
 				<h2>Selection</h2>
-				<code>
+				<pre><code>
 var p = d3.select("body").append('p').data([42, 34, 54, 65, 75]);
 p.enter().append()
 	.text(function(d){ return 'hello ' + d;})
-				</code>
+</code></pre>
 				<a href="http://jsfiddle.net/pgrwrvyp/10/" target="_blank">Fiddle</a>
 
 			</section>
@@ -111,13 +111,13 @@ p.enter().append()
 			<section>
 				<h2>Selection</h2>
 
-				<code class="hljs" data-trim contenteditable>
+				<pre><code class="hljs" data-trim contenteditable>
 <p>hello 34</p>;
 var p = d3.select("body").selectAll('p').append('p').data([42, 34, 54, 65, 75]);
 p.enter().append('p')
 .text(function(d){ return 'hello ' + d;})
 .style('color', 'red')
-				</code>
+				</code></pre>
 				<a href="http://jsfiddle.net/pgrwrvyp/11/" target="_blank">Fiddle</a>
 				<aside class="notes">
 					 The selection.sort and selection.data methods now return new selections rather than modifying the selection in-place. In addition, selection.append no longer merges entering nodes into the update selection; use selection.merge to combine enter and update after a data join
@@ -127,7 +127,7 @@ p.enter().append('p')
 			<section>
 				<h2>Selection</h2>
 
-				<code class="hljs" data-trim contenteditable>
+				<pre><code class="hljs" data-trim contenteditable>
 
 	var els = d3.select("body")
     .selectAll("p")
@@ -144,7 +144,7 @@ p.enter().append('p')
   var merged = els.merge(entering)// ENTER + UPDATE
     .style("color", "green");
 
-				</code>
+	</code></pre>
 				<a href="https://jsfiddle.net/yonet3d/6y0wwdmr/1/" target="_blank">Fiddle</a>
 				<aside class="notes">
 					 The selection.sort and selection.data methods now return new selections rather than modifying the selection in-place. In addition, selection.append no longer merges entering nodes into the update selection; use selection.merge to combine enter and update after a data join
@@ -152,13 +152,13 @@ p.enter().append('p')
 			</section>
 			<section>
 				<h2>Transition</h2>
-				<code class="hljs" data-trim contenteditable>
+				<pre><code class="hljs" data-trim contenteditable>
 var exiting = els.exit()
   	.transition()
     .duration(750)
     .ease(d3.easeLinear)
   	.style("color", "lightgrey");//EXIT
-	</code>
+	</code></pre>
 	<a href="https://jsfiddle.net/yonet3d/6y0wwdmr/1/" target="_blank">Fiddle</a>
 			</section>
 			<section>
@@ -170,11 +170,11 @@ x = d3.scaleLinear()
 			</section>
 			<section>
 				<h2>Scales</h2>
-				<code class="hljs" data-trim contenteditable>
+				<pre><code class="hljs" data-trim contenteditable>
 x = d3.scaleLinear()
     .range([0, width])
 		.domain([0, 100]);
-				</code>
+	</code></pre>
 			</section>
 			<section>
 				<h2>Axis</h2>
@@ -184,12 +184,12 @@ var xAxis = d3.axisBottom(x).ticks(12);
 			</section>
 			<section>
 				<h2>Axis</h2>
-				<code  data-trim contenteditable>
+				<pre><code  data-trim contenteditable>
 var xAxis = d3.axisBottom(x).ticks(12);
 svg.append("g")
 	.attr("transform", "translate(0," + height + ")")
 	.call(xAxis);
-			</code>
+</code></pre>
 			</section>
 
 			<section>
@@ -200,17 +200,17 @@ svg.append("g")
 					<li>Populate data</li>
 					<li>Draw axis</li>
 				</ul>
-				<code class="hljs" data-trim contenteditable>
+				<pre><code class="hljs" data-trim contenteditable>
 render() {
 	setup();
 	populate();
 }
-				</code>
+				</code></pre>
 			</section>
 			<section>
 				<h2>Setup</h2>
 
-				<code class="" data-trim contenteditable>
+				<pre><code class="" data-trim contenteditable>
 function setUp() {
 	var margin = {
 		top: 20,
@@ -227,7 +227,7 @@ function setUp() {
 	var y = d3.scaleLinear()
 		.range([height, 0]);
 }
-				</code>
+				</code></pre>
 				<a href="https://jsfiddle.net/yonet3d/6y0wwdmr/" target="_blank">Fiddle</a>
 				<aside class="notes">
 					 The selection.sort and selection.data methods now return new selections rather than modifying the selection in-place. In addition, selection.append no longer merges entering nodes into the update selection; use selection.merge to combine enter and update after a data join
@@ -258,6 +258,8 @@ Nests</li>
 				<ul>
 					<li><a href="http://bl.ocks.org/monfera/2d2809d8458ffb81cc9acab2e65ed4ef">Mixing drinks on Tralfamadore</a></li>
 					<li><a href="http://bl.ocks.org/mbostock/raw/70d5541b547cc222aa02/">Chain transitions</a></li>
+					<li><a href="http://blockbuilder.org/search#d3version=v4">d3.v4 examples</a></li>
+					<li><a href="http://bl.ocks.org">Much more</a></li>
 				</ul>
 
 
@@ -325,28 +327,38 @@ circleBinding // ENTER + UPDATE
 	<script>
 		// More info https://github.com/hakimel/reveal.js#configuration
 		Reveal.initialize({
-					history: true,
-					width: 960,
-    height: 700,
-		previewLinks: true,
-
-					transition: 'default',
-						// More info https://github.com/hakimel/reveal.js#dependencies
-						dependencies: [{
-							src: 'plugin/markdown/marked.js'
-						}, {
-							src: 'plugin/markdown/markdown.js'
-						}, {
-							src: 'plugin/notes/notes.js',
-							async: true
-						}, {
-							src: 'plugin/highlight/highlight.js',
-							async: true,
-							callback: function() {
-								hljs.initHighlightingOnLoad();
-							}
-						}]
-					});
+				history: true,
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		// Reveal.initialize({
+		// 			history: true,
+		// 			width: 960,
+    // height: 700,
+		// // previewLinks: true,
+		//
+		// 			transition: 'default',
+		// 				// More info https://github.com/hakimel/reveal.js#dependencies
+		// 				dependencies: [{
+		// 					src: 'plugin/markdown/marked.js'
+		// 				}, {
+		// 					src: 'plugin/markdown/markdown.js'
+		// 				}, {
+		// 					src: 'plugin/notes/notes.js',
+		// 					async: true
+		// 				}, {
+		// 					src: 'plugin/highlight/highlight.js',
+		// 					async: true,
+		// 					callback: function() {
+		// 						hljs.initHighlightingOnLoad();
+		//
+		// 				}]
+		// 			});
 	</script>
 	<script src="js/d3.v3.min.js"></script>
 	<script src="js/topojson.v1.min.js"></script>
