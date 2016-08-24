@@ -3,19 +3,10 @@
 
 <head>
 	<meta charset="utf-8">
-
 	<title>reveal.js – The HTML Presentation Framework</title>
-
 	<meta name="description" content="d3.js v4 examples">
 	<meta name="author" content="Aysegul Yonet">
-
-
-
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-
-	<!-- Theme used for syntax highlighting of code -->
-
 	<script>
 	</script>
 
@@ -29,8 +20,6 @@
 		</div>
 		<p id="chart"></p>
 
-
-
 	</div>
 
 
@@ -40,12 +29,17 @@
 	<script>
 
 		function render(data) {
+			// basic set up
 			setUp()
+			//Adds the data and renders
 			populate(data)
 		}
-		
 
 		render()
+
+		d3.select("#randomBtn").on("click", function() {
+			populate()
+		});
 
 		function setUp() {
 
@@ -70,21 +64,19 @@
 
 			svg = d3.select("#chart").append("svg")
 				.attr("id", "chart_svg")
-				.attr("data-margin-right", margin.right)
-				.attr("data-margin-left", margin.left)
-				.attr("data-margin-top", margin.top)
-				.attr("data-margin-bottom", margin.bottom)
 				.attr("width", width + margin.left + margin.right)
 				.attr("height", height + margin.top + margin.bottom)
 				.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+			// XAxis
 			svg.append("g")
 				.attr("class", "x axis ")
 				.attr('id', "axis--x")
 				.attr("transform", "translate(0," + height + ")")
 				.call(xAxis);
 
+				// YAxis
 			svg.append("g")
 				.attr("class", "y axis")
 				.attr('id', "axis--y")
@@ -94,6 +86,8 @@
 
 		function populate() {
 			var ds = randomData(30);
+
+			//SetUp domain
 			x.domain(d3.extent(ds, function(d) {
 				return d.x;
 			})).nice();
@@ -115,6 +109,7 @@
 					return y(d.y);
 				});
 
+			// Bind the data	
 			svg.selectAll(".dot")
 				.data(ds)
 				.enter().append("circle")
@@ -147,9 +142,7 @@
 		}
 
 		// Change data
-		d3.select("#randomBtn").on("click", function() {
-			populate()
-		});
+
 	</script>
 
 

@@ -38,6 +38,9 @@
 				<h2>D3.JS</h2>
 				<div class="earth">
 				</div>
+				<p>
+					By <a href="https://twitter.com/mbostock?lang=en">Mike Bostock</a>
+				</p>
 			</section>
 
 			<section>
@@ -90,10 +93,10 @@ p.html('hello');
 			</section>
 			<section>
 				<h2>Selection</h2>
-				</code></pre>
+				<pre><code>
 var p = d3.select("body").append('p').data([42, 34, 54, 65, 75]);
 p.text(function(d){ return 'hello ' + d;})
-				</code>
+				</code></pre>
 				<a href="http://jsfiddle.net/pgrwrvyp/9/" target="_blank">Fiddle</a>
 			</section>
 
@@ -159,14 +162,14 @@ var exiting = els.exit()
     .ease(d3.easeLinear)
   	.style("color", "lightgrey");//EXIT
 	</code></pre>
-	<a href="https://jsfiddle.net/yonet3d/6y0wwdmr/1/" target="_blank">Fiddle</a>
+	<a href="https://jsfiddle.net/yonet3d/6y0wwdmr/4/" target="_blank">Fiddle</a>
 			</section>
 			<section>
 				<h2>Scales</h2>
-				<code class="hljs" data-trim contenteditable>
+				<pre><code class="hljs" data-trim contenteditable>
 x = d3.scaleLinear()
     .range([0, width])
-				</code>
+	</code></pre>
 			</section>
 			<section>
 				<h2>Scales</h2>
@@ -175,12 +178,13 @@ x = d3.scaleLinear()
     .range([0, width])
 		.domain([0, 100]);
 	</code></pre>
+		<a href="http://jsfiddle.net/yonet3d/pgrwrvyp/13/" target="_blank">Fiddle</a>
 			</section>
 			<section>
 				<h2>Axis</h2>
-				<code  data-trim contenteditable>
+				<pre><code  data-trim contenteditable>
 var xAxis = d3.axisBottom(x).ticks(12);
-			</code>
+			</code></pre>
 			</section>
 			<section>
 				<h2>Axis</h2>
@@ -212,12 +216,7 @@ render() {
 
 				<pre><code class="" data-trim contenteditable>
 function setUp() {
-	var margin = {
-		top: 20,
-		right: 20,
-		bottom: 30,
-		left: 50
-	};
+	var margin = {top: 20, right: 20,bottom: 30,left: 50};
 	width = 800 - margin.left - margin.right,
 		height = 400 - margin.top - margin.bottom;
 
@@ -228,7 +227,8 @@ function setUp() {
 		.range([height, 0]);
 }
 				</code></pre>
-				<a href="https://jsfiddle.net/yonet3d/6y0wwdmr/" target="_blank">Fiddle</a>
+				<a href="/demo.html" target="_blank">Demo</a>
+				<!-- <a href="https://jsfiddle.net/yonet3d/6y0wwdmr/" target="_blank">Fiddle</a> -->
 				<aside class="notes">
 					 The selection.sort and selection.data methods now return new selections rather than modifying the selection in-place. In addition, selection.append no longer merges entering nodes into the update selection; use selection.merge to combine enter and update after a data join
 				</aside>
@@ -275,7 +275,7 @@ Nests</li>
 				<p>
 
 					- <a href="https://twitter.com/AysegulYonet">@AysegulYone</a> <br>
-					- <a href="https://github.com/hakimel/reveal.js">Slides and code</a>
+					- <a href="https://github.com/Yonet/d3-v4-slides">Slides and code</a>
 				</p>
 			</section>
 
