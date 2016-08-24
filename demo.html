@@ -22,7 +22,6 @@
 
 	</div>
 
-
 	<script src="js/d3.v4.js"></script>
 	<!-- <script src=""></script> -->
 
@@ -36,7 +35,8 @@
 		}
 
 		render()
-
+		
+		// Repopulate
 		d3.select("#randomBtn").on("click", function() {
 			populate()
 		});
@@ -109,7 +109,7 @@
 					return y(d.y);
 				});
 
-			// Bind the data	
+			// Bind the data
 			svg.selectAll(".dot")
 				.data(ds)
 				.enter().append("circle")
@@ -140,8 +140,6 @@
 			}
 			return data;
 		}
-
-		// Change data
 
 	</script>
 

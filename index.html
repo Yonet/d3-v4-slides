@@ -32,6 +32,9 @@
 				<p>
 					<a href="https://twitter.com/AysegulYonet">@AysegulYonet</a>
 				</p>
+				<p>
+					<a href="https://a360.autodesk.com/viewer/" >A360 Autodesk</a>
+				</p>
 			</section>
 
 			<section >
@@ -413,13 +416,13 @@ context.fill();
 projection.rotate([velocity * elapsed, 0]);
 context.beginPath();
 path(land);
-context.fillStyle = colors[6]//'#00bdff';
+context.fillStyle = '#00bdff';
 context.fill();
 
 context.beginPath();
 context.arc(width / 2, height / 2, radius, 0, 2 * Math.PI, true);
 context.lineWidth = 2.5;
-context.strokeStyle = colors[0];//'#007a99'
+context.strokeStyle = '#007a99';//colors[0];//
 context.stroke();
 });
 });
