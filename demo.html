@@ -1,149 +1,141 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-	<meta charset="utf-8">
-	<title>reveal.js – The HTML Presentation Framework</title>
-	<meta name="description" content="d3.js v4 examples">
-	<meta name="author" content="Aysegul Yonet">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<script>
-	</script>
+	<head>
+		<meta charset="utf-8">
+		<title>reveal.js – The HTML Presentation Framework</title>
+		<meta name="description" content="d3.js v4 examples">
+		<meta name="author" content="Aysegul Yonet">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<script>
+		</script>
+	</head>
 
-
-</head>
-
-<body>
-	<div class="container">
-		<div style="margin-left: 50px; margin-top: 20px;">
-			<button id="randomBtn" type="button" class="btn btn-info btn-sm">Change Data</button>
+	<body>
+		<div class="container">
+			<div style="margin-left: 50px; margin-top: 20px;">
+				<button id="randomBtn" type="button" class="btn btn-info btn-sm">Change Data</button>
+			</div>
+			<p id="chart"></p>
 		</div>
-		<p id="chart"></p>
 
-	</div>
+		<script src="js/d3.v4.js"></script>
+		<!-- <script src=""></script> -->
 
-	<script src="js/d3.v4.js"></script>
-	<!-- <script src=""></script> -->
+		<script>
+			function render(data) {
+				// basic set up
+				setUp()
+				//Adds the data and renders
+				populate(data)
+			}
 
-	<script>
+			render()
 
-		function render(data) {
-			// basic set up
-			setUp()
-			//Adds the data and renders
-			populate(data)
-		}
+			// Repopulate
+			d3.select("#randomBtn").on("click", function() {
+				populate()
+			});
 
-		render()
-		
-		// Repopulate
-		d3.select("#randomBtn").on("click", function() {
-			populate()
-		});
+			function setUp() {
 
-		function setUp() {
+				var margin = {
+					top: 20,
+					right: 20,
+					bottom: 30,
+					left: 50
+				};
 
-			var margin = {
-				top: 20,
-				right: 20,
-				bottom: 30,
-				left: 50
-			};
+				width = 800 - margin.left - margin.right,
+					height = 400 - margin.top - margin.bottom;
 
-			width = 800 - margin.left - margin.right,
-				height = 400 - margin.top - margin.bottom;
+				x = d3.scaleLinear()
+					.range([0, width]);
 
-			x = d3.scaleLinear()
-				.range([0, width]);
+				y = d3.scaleLinear()
+					.range([height, 0]);
 
-			y = d3.scaleLinear()
-				.range([height, 0]);
+				xAxis = d3.axisBottom(x).ticks(12);
+				yAxis = d3.axisLeft(y).ticks(12 * height / width);
 
-			xAxis = d3.axisBottom(x).ticks(12);
-			yAxis = d3.axisLeft(y).ticks(12 * height / width);
+				svg = d3.select("#chart").append("svg")
+					.attr("id", "chart_svg")
+					.attr("width", width + margin.left + margin.right)
+					.attr("height", height + margin.top + margin.bottom)
+					.append("g")
+					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-			svg = d3.select("#chart").append("svg")
-				.attr("id", "chart_svg")
-				.attr("width", width + margin.left + margin.right)
-				.attr("height", height + margin.top + margin.bottom)
-				.append("g")
-				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-			// XAxis
-			svg.append("g")
-				.attr("class", "x axis ")
-				.attr('id', "axis--x")
-				.attr("transform", "translate(0," + height + ")")
-				.call(xAxis);
+				// XAxis
+				svg.append("g")
+					.attr("class", "x axis ")
+					.attr('id', "axis--x")
+					.attr("transform", "translate(0," + height + ")")
+					.call(xAxis);
 
 				// YAxis
-			svg.append("g")
-				.attr("class", "y axis")
-				.attr('id', "axis--y")
-				.call(yAxis);
+				svg.append("g")
+					.attr("class", "y axis")
+					.attr('id', "axis--y")
+					.call(yAxis);
 
-		}
-
-		function populate() {
-			var ds = randomData(30);
-
-			//SetUp domain
-			x.domain(d3.extent(ds, function(d) {
-				return d.x;
-			})).nice();
-			y.domain(d3.extent(ds, function(d) {
-				return d.y;
-			})).nice();
-
-
-			//Transition
-			var t = svg.transition().duration(750);
-			svg.select("#axis--x").transition(t).call(xAxis);
-			svg.select("#axis--y").transition(t).call(yAxis);
-			svg.selectAll(".dot").data(ds)
-			svg.selectAll("circle").transition(t)
-				.attr("cx", function(d) {
-					return x(d.x);
-				})
-				.attr("cy", function(d) {
-					return y(d.y);
-				});
-
-			// Bind the data
-			svg.selectAll(".dot")
-				.data(ds)
-				.enter().append("circle")
-				.attr("class", "dot")
-				.attr("r", function(d) {
-					return x(d.x) / 30;
-				})
-				.attr("cx", function(d) {
-					return x(d.x);
-				})
-				.attr("cy", function(d) {
-					return y(d.y);
-				})
-				.attr("opacity", 0.5)
-				.style("fill", "red");
-
-		}
-
-		function randomData(samples) {
-			var data = [],
-				random = d3.randomNormal();
-
-			for (i = 0; i < samples; i++) {
-				data.push({
-					x: random(),
-					y: random()
-				});
 			}
-			return data;
-		}
 
-	</script>
+			function populate() {
+				var ds = randomData(30);
 
+				//SetUp domain
+				x.domain(d3.extent(ds, function(d) {
+					return d.x;
+				})).nice();
+				y.domain(d3.extent(ds, function(d) {
+					return d.y;
+				})).nice();
 
-</body>
+				//Transition
+				var t = svg.transition().duration(750);
+				svg.select("#axis--x").transition(t).call(xAxis);
+				svg.select("#axis--y").transition(t).call(yAxis);
+				svg.selectAll(".dot").data(ds)
+				svg.selectAll("circle").transition(t)
+					.attr("cx", function(d) {
+						return x(d.x);
+					})
+					.attr("cy", function(d) {
+						return y(d.y);
+					});
+
+				// Bind the data
+				svg.selectAll(".dot")
+					.data(ds)
+					.enter().append("circle")
+					.attr("class", "dot")
+					.attr("r", function(d) {
+						return x(d.x) / 30;
+					})
+					.attr("cx", function(d) {
+						return x(d.x);
+					})
+					.attr("cy", function(d) {
+						return y(d.y);
+					})
+					.attr("opacity", 0.5)
+					.style("fill", "red");
+
+			}
+
+			function randomData(samples) {
+				var data = [],
+					random = d3.randomNormal();
+
+				for (i = 0; i < samples; i++) {
+					data.push({
+						x: random(),
+						y: random()
+					});
+				}
+				return data;
+			}
+		</script>
+	</body>
 
 </html>
